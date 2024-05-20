@@ -19,9 +19,8 @@ app.use(cors());
 
 const DIGITRANSIT_API_KEY = process.env.HSL_API_KEY;
 
+// Load the frontend build from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(express.json());
 
 // Fetch nearby stops from the Digitransit API
 async function fetchNearbyStops(lat, lon) {
@@ -59,12 +58,12 @@ async function fetchNearbyStops(lat, lon) {
     }
 }
 
-// Endpoint to get nearby stops
+// Local endpoint to get the nearby stops
 app.get('/api/digitransit/nearby-stops', async (req, res) => {
     const { lat, lon } = req.query;
 
     if (!lat || !lon) {
-        return res.status(400).json({ error: 'Latitude and longitude are required' });
+        return res.status(400).json({ error: 'lat and lon are required query parameters.' });
     }
 
     try {
