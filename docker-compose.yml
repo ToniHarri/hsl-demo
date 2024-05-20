@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+    app:
+        container_name: hsl-demo-app
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - "${PORT}:${PORT}"
+        volumes:
+            - .:/usr/src/app
+            - /usr/src/app/node_modules
+        command: ["nodemon", "start"]
+
+volumes:
+    node_modules:
